@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="../css/styles.css">
+</head>
+
+<body>
+    <main>
+        <div class="form-container">
+            <h2> Insert Game </h2>
+            <form action="add_game.php" method="post">
+                Game ID:
+                <input type="text" name="game_id">
+                <br> Rating
+                <input type="text" name="rating">
+                <br> Game Name
+                <input type="text" name="game_name">
+                <br> Summary
+                <input type="textarea" name="summary">
+                <br> Price
+                <input type="number" name="price">
+                <br>
+                <input type="submit">
+            </form>
+        </div>
+        <div class="backbuttoncontainer">
+            <button class="backbutton" onclick="location.href='../welcome.php'" type="button">Back to Home
+                Page!</button>
+        </div>
+    </main>
+</body>
+
+</html>
