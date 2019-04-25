@@ -23,9 +23,10 @@
 // Query:
 $game_id = basename(__FILE__, '.php');
 $sql = "SELECT * FROM game join game_info on game.game_id = game_info.gameinfo_id
-		join spmp on game_info.gameinfo_id = spmp.gameinfo_id
-		join game_genres on spmp.gameinfo_id = game_genres.gameinfo_id 
+		join game_genres on game.game_id = game_genres.gameinfo_id
+		join spmp on game.game_id = spmp.gameinfo_id
 		where game.game_id = '$game_id'";
+
 $result = $conn->query($sql);
 if($result->num_rows > 0){
 

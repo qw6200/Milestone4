@@ -31,14 +31,28 @@ $game_id = $_POST['game_id'];
 $rating = $_POST['rating'];
 $game_name = $_POST['game_name'];
 $summary = $_POST['summary'];
-$rating= $_POST['rating'];
-$sql = "INSERT INTO game values ('$game_id', $rating, '$game_name',
-'$summary', $rating);";
+$genre = $_POST['genre'];
+$setting = $_POST['setting'];
+$graphics = $_POST['graphics'];
+$price = $_POST['price'];
+$os= $_POST['OS'];
+$release_date = $_POST['release_date'];
+$singlemulti = $_POST['singlemulti'];
 
 
-#$sql = "SELECT * FROM Students where Username like 'amai2';";
-$result = $conn->query($sql);
+$sql = "INSERT INTO game values ('$game_id', $rating, '$game_name','$summary', $price);";
+$sql .= "INSERT INTO game_info values ('$game_id', '$setting', '$graphics', '$os', $release_date);";
+$sql .= "INSERT INTO spmp values ('$game_id', '$singlemulti');";
+$sql .= "INSERT INTO game_genres values ('$game_id', '$genre');";
 
+
+/* execute multi query */
+if (mysqli_multi_query($conn,$sql) === TRUE)
+{
+	echo "New record created successfully";
+
+}
+// finish insertion and create game page
 if ($result === TRUE) {
 	echo "New record created successfully";
 	$myfile = fopen("../games_pages/$game_id.php", "w") or die("Unable to open file!");
@@ -47,11 +61,7 @@ if ($result === TRUE) {
 	fclose($myfile);
 } else {
     echo "Error: " . $sql . "<br>" . $conn->error;
-} 
-//$stmt = $conn->prepare("Select * from Students Where Username like ?");
-//$stmt->bind_param("s", $username);
-//$result = $stmt->execute();
-//$result = $conn->query($sql);
+}
 ?>
 	<div class="backbuttoncontainer">
 		<button class="backbutton" onclick="location.href='add_game.html'" type="button">Click to Go Back!</button>

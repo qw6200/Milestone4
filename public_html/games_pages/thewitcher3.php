@@ -22,9 +22,11 @@
 		}
 // Query:
 $game_id = basename(__FILE__, '.php');
-$sql = "SELECT game_id, game_info.setting FROM game join game_info on game.game_id = game_info.gameinfo_id
-		join spmp on game_info.gameinfo_id = spmp.gameinfo_id
-		join game_genres on spmp.gameinfo_id = game_genres.gameinfo_id where game.game_id = '$game_id'";
+$sql = "SELECT * FROM game join game_info on game.game_id = game_info.gameinfo_id
+		join game_genres on game.game_id = game_genres.gameinfo_id
+		join spmp on game.game_id = spmp.gameinfo_id
+		where game.game_id = '$game_id'";
+
 $result = $conn->query($sql);
 if($result->num_rows > 0){
 
@@ -38,7 +40,7 @@ if($result->num_rows > 0){
 				<th>Summary</th>
 				<th>Graphics</th>
 				<th>SP/MP</th>
-				<!-- <th>Genres</th> -->
+				<th>Genres</th>
 			</tr>
 			<?php
 while($row = $result->fetch_assoc()){
@@ -64,6 +66,9 @@ while($row = $result->fetch_assoc()){
 				</td>
 				<td>
 					<?php echo $row['singlemulti']?>
+				</td>
+				<td>
+					<?php echo $row['genre']?>
 				</td>
 
 			</tr>
