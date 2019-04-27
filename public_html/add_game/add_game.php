@@ -56,11 +56,8 @@ if ($conn->multi_query($sql)) {
             }
             $result->free();
         }
-        /* print divider */
-        if ($conn->more_results()) {
-            printf("-----------------\n");
-        }
-    } while ($conn->next_result());
+	} while ($conn->next_result());
+	header("location: ../welcome.php");
 }
 
 // finish insertion and create game page
@@ -70,8 +67,7 @@ if ($result === TRUE) {
 	$txt = file_get_contents('create_game_page.php');
 	fwrite($myfile, $txt);
 	fclose($myfile);
-} else {
-    echo "Error: " . $sql . "<br>" . $conn->error;
+	header("location: login.php");
 }
 ?>
 	
