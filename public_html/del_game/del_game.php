@@ -19,8 +19,8 @@
 <body>
 
 	<?php
-require_once('db_setup.php');
-$sql = "USE jhur3_1;";
+require_once('../db_setup.php');
+$sql = "USE game_db;";
 if ($conn->query($sql) === TRUE) {
    // echo "using Database tbiswas2_company";
 } else {
@@ -28,8 +28,27 @@ if ($conn->query($sql) === TRUE) {
 }
 // Query:
 $game_id = $_POST['game_id'];
-$sql = "DELETE FROM game where game_id =  '$game_id';";
 
+$sql = "DELETE FROM spmp where gameinfo_id = '$game_id';";
+$sql .= "DELETE FROM game_genres where gameinfo_id = '$game_id';";
+$sql .= "DELETE FROM game_info where gameinfo_id = '$game_id';";
+$sql .= "DELETE FROM game where game_id = '$game_id'";
+
+if ($conn->multi_query($sql)) {
+    do {
+        /* store first result set */
+        if ($result = $conn->store_result()) {
+            while ($row = $result->fetch_row()) {
+                printf("%s\n", $row[0]);
+            }
+            $result->free();
+        }
+        /* print divider */
+        if ($conn->more_results()) {
+            printf("-----------------\n");
+        }
+    } while ($conn->next_result());
+}
 
 #$sql = "SELECT * FROM Students where Username like 'amai2';";
 $result = $conn->query($sql);

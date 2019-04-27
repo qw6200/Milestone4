@@ -35,7 +35,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     // Validate credentials
     if(empty($username_err) && empty($password_err)){
         // Prepare a select statement
-        $sql = "SELECT username, pass FROM jhur3_1.db_user WHERE username = ?";
+        $sql = "SELECT username, pass FROM game_db.db_user WHERE username = ?";
         
         if($stmt = mysqli_prepare($conn, $sql)){
             // Bind variables to the prepared statement as parameters
@@ -43,7 +43,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             
             // Set parameters
             $param_username = $username;
-            // $sql = "INSERT INTO jhur3_1.db_user (username, pass, first_name, last_name) VALUES ('$username', '$hashed_password', '$first_name', '$last_name')";
+            // $sql = "INSERT INTO game_db.db_user (username, pass, first_name, last_name) VALUES ('$username', '$hashed_password', '$first_name', '$last_name')";
             // if ($conn->query($sql) === TRUE) {
             //     header("location: login.php");
             // } else {

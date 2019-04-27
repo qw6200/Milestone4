@@ -58,7 +58,7 @@
 			<div>
 				<?php
 				require_once('db_setup.php');
-				$sql = "USE jhur3_1;";
+				$sql = "USE game_db;";
 				if ($conn->query($sql) === TRUE) {
    				// echo "using Database tbiswas2_company";
 				} else {

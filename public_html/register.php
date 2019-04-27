@@ -11,7 +11,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     if(empty(trim($_POST["username"]))){
         $username_err = "Please enter a username.";
     } else{
-        $sql = "SELECT username FROM jhur3_1.db_user WHERE username = ?";
+        $sql = "SELECT username FROM game_db.db_user WHERE username = ?";
         
         if($stmt = mysqli_prepare($conn, $sql)){
             mysqli_stmt_bind_param($stmt, "s", $param_username);
@@ -71,7 +71,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         // create hashed pass variable
         $hashed_password = password_hash($pass, PASSWORD_DEFAULT); // Creates a password hash
 
-        $sql = "INSERT INTO jhur3_1.db_user (username, pass, first_name, last_name) VALUES ('$username', '$hashed_password', '$first_name', '$last_name')";
+        $sql = "INSERT INTO game_db.db_user (username, pass, first_name, last_name) VALUES ('$username', '$hashed_password', '$first_name', '$last_name')";
         if ($conn->query($sql) === TRUE) {
             header("location: login.php");
         } else {

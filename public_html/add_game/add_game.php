@@ -20,7 +20,7 @@
 
 	<?php
 require_once('../db_setup.php');
-$sql = "USE jhur3_1;";
+$sql = "USE game_db;";
 if ($conn->query($sql) === TRUE) {
    // echo "using Database tbiswas2_company";
 } else {
@@ -43,15 +43,26 @@ $singlemulti = $_POST['singlemulti'];
 $sql = "INSERT INTO game values ('$game_id', $rating, '$game_name','$summary', $price);";
 $sql .= "INSERT INTO game_info values ('$game_id', '$setting', '$graphics', '$os', $release_date);";
 $sql .= "INSERT INTO spmp values ('$game_id', '$singlemulti');";
-$sql .= "INSERT INTO game_genres values ('$game_id', '$genre');";
+$sql .= "INSERT INTO game_genres values ('$game_id', '$genre')";
 
 
 /* execute multi query */
-if (mysqli_multi_query($conn,$sql) === TRUE)
-{
-	echo "New record created successfully";
-
+if ($conn->multi_query($sql)) {
+    do {
+        /* store first result set */
+        if ($result = $conn->store_result()) {
+            while ($row = $result->fetch_row()) {
+                printf("%s\n", $row[0]);
+            }
+            $result->free();
+        }
+        /* print divider */
+        if ($conn->more_results()) {
+            printf("-----------------\n");
+        }
+    } while ($conn->next_result());
 }
+
 // finish insertion and create game page
 if ($result === TRUE) {
 	echo "New record created successfully";
@@ -63,11 +74,12 @@ if ($result === TRUE) {
     echo "Error: " . $sql . "<br>" . $conn->error;
 }
 ?>
-	<div class="backbuttoncontainer">
-		<button class="backbutton" onclick="location.href='add_game.html'" type="button">Click to Go Back!</button>
-	</div>
+	
+<div class="backbuttoncontainer">
+	<button class="backbutton" onclick="location.href='add_game.html'" type="button">Click to Go Back!</button>
+</div>
 
-	<?php
+<?php
 $conn->close();
 ?>
 
