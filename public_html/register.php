@@ -71,9 +71,21 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         // create hashed pass variable
         $hashed_password = password_hash($pass, PASSWORD_DEFAULT); // Creates a password hash
 
-        $sql = "INSERT INTO game_db.db_user (username, pass, first_name, last_name) VALUES ('$username', '$hashed_password', '$first_name', '$last_name')";
-        if ($conn->query($sql) === TRUE) {
-            header("location: login.php");
+        $sql = "INSERT INTO game_db.db_user (username, pass, first_name, last_name) VALUES ('$username', '$hashed_password', '$first_name', '$last_name');";
+        $sql .= "INSERT INTO game_db.user_preferences (userpref_id, rating, price, OS) VALUES ('$username', '0', '0', 'windows')";
+
+        if ($conn->multi_query($sql)) {
+            do {
+                /* store first result set */
+                if ($result = $conn->store_result()) {
+                    while ($row = $result->fetch_row()) {
+                        printf("%s\n", $row[0]);
+                    }
+                    $result->free();
+                }
+            } while ($conn->next_result());
+            echo "New record created successfully";
+            header("location:login.php");
         } else {
             echo "Error: " . $sql . "<br>" . $conn->error;
         }
@@ -93,7 +105,8 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 <head>
 	<meta charset="UTF-8">
 	<title>Sign Up</title>
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.css">
+    <link rel="stylesheet" href="css/styles.css">
 	<style type="text/css">
 		body {
 			font: 14px sans-serif;
@@ -107,6 +120,17 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 </head>
 
 <body>
+<header class="banner">
+
+<div class="bannerpart1">
+    <h3>CSC261: Game Database</h3>
+</div>
+
+<div class="bannerpart2">
+    <?php include 'inc/navroot.inc';?>
+</div>
+
+</header>
 	<div class="wrapper">
 		<h2>Sign Up</h2>
 		<p>Please fill this form to create an account.</p>

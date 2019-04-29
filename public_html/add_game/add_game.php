@@ -57,6 +57,7 @@ if ($conn->multi_query($sql)) {
             $result->free();
         }
 	} while ($conn->next_result());
+	echo "New record created successfully";
 	header("location: ../welcome.php");
 }
 
@@ -72,7 +73,7 @@ if ($result === TRUE) {
 ?>
 	
 <div class="backbuttoncontainer">
-	<button class="backbutton" onclick="location.href='add_game.html'" type="button">Click to Go Back!</button>
+	<button class="backbutton" onclick="location.href='add_gameform.php'" type="button">Click to Go Back!</button>
 </div>
 
 <?php

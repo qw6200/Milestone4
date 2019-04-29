@@ -1,3 +1,4 @@
+<?php session_start(); ?>
 <!DOCTYPE html>
 <html>
 
@@ -10,8 +11,45 @@
 
 </head>
 
-<body>
+<body class="bodyclass">
+<header class="banner">
+
+<div class="bannerpart1">
+	<h3>CSC261: Game Database</h3>
+</div>
+
+<div class="bannerpart2">
+	<?php include '../inc/nav.inc';?>
+</div>
+
+</header>
 	<div class="home-container">
+	<ul class="nav-bar tablebar">
+				<?php if(isset($_SESSION['username'])) { ?>
+				<li>
+					<a href="../add_game/add_gameform.php">Add Game</a>
+				</li>
+				<li>
+					<a href="../del_game/del_gameform.php">Delete Game</a>
+				</li>
+				<?php } else { ?>
+				<?php } ?>
+				<!-- <li>
+					<a href="select_game.php">View Games</a>
+				</li> -->
+				<li>
+					<a href="../select_game/select_game_info.php">View Game Info</a>
+				</li>
+				<li>
+					<a href="../select_game/select_game_genres.php">View Game Genres</a>
+				</li>
+				<li>
+					<a href="../select_game/select_spmp.php">View SP/MP</a>
+				</li>
+				<li>
+					<a href="../find_game/find_gameform.php">Find Game</a>
+				</li>
+			</ul>
 		<?php
 		require_once('../db_setup.php');
 		$sql = "USE game_db;";

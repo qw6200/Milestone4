@@ -99,7 +99,8 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 <head>
 	<meta charset="UTF-8">
 	<title>Login</title>
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.css">
+    <link rel="stylesheet" href="css/styles.css">
 	<style type="text/css">
 		body {
 			font: 14px sans-serif;
@@ -113,6 +114,19 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 </head>
 
 <body>
+
+<header class="banner">
+
+<div class="bannerpart1">
+    <h3>CSC261: Game Database</h3>
+</div>
+
+<div class="bannerpart2">
+    <?php include 'inc/navroot.inc';?>
+</div>
+
+</header>
+
 	<div class="wrapper">
 		<h2>Login</h2>
 		<p>Please fill in your credentials to login.</p>

@@ -1,3 +1,4 @@
+<?php session_start(); ?>
 <!DOCTYPE html>
 <html>
 
@@ -48,23 +49,17 @@ if ($conn->multi_query($sql)) {
             printf("-----------------\n");
         }
     } while ($conn->next_result());
+    echo "Record deleted successfully";
+    header("location: ../welcome.php");
 }
 
-#$sql = "SELECT * FROM Students where Username like 'amai2';";
-$result = $conn->query($sql);
-
 if ($result === TRUE) {
-    echo "record deleted successfully";
-} else {
-    echo "Error: " . $sql . "<br>" . $conn->error;
-} 
-//$stmt = $conn->prepare("Select * from Students Where Username like ?");
-//$stmt->bind_param("s", $username);
-//$result = $stmt->execute();
-//$result = $conn->query($sql);
+    echo "Record deleted successfully";
+}
 ?>
+
 <div class="backbuttoncontainer">
-	<button class="backbutton" onclick="location.href='del_game.html'" type="button">Click to Go Back!</button>
+	<button class="backbutton" onclick="location.href='del_gameform.php'" type="button">Click to Go Back!</button>
 </div>
 	<?php
 $conn->close();

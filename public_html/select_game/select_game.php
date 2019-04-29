@@ -1,3 +1,4 @@
+<?php session_start(); ?>
 <!DOCTYPE html>
 <html>
 
@@ -17,8 +18,19 @@
 	 crossorigin="anonymous"></script>
 </head>
 
-<body>
+<body class="bodyclass">
+<header class="banner">
 
+<div class="bannerpart1">
+	<h3>CSC261: Game Database</h3>
+</div>
+
+<div class="bannerpart2">
+	<?php include '../inc/nav.inc';?>
+</div>
+
+</header>
+<div class="home-container">
 	<?php
 require_once('../db_setup.php');
 $sql = "USE game_db;";
@@ -33,6 +45,7 @@ $result = $conn->query($sql);
 if($result->num_rows > 0){
 
 ?>
+<h2>Viewing Games</h2>
 	<table class="table table-striped">
 		<tr>
 			<th>game_id</th>
@@ -79,6 +92,7 @@ echo "Nothing to display";
 	<?php
 $conn->close();
 ?>
+</div>
 </body>
 
 </html>
