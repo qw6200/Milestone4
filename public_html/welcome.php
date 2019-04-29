@@ -17,17 +17,17 @@
 
 <body class="bodyclass">
 
-<header class="banner">
+	<header class="banner">
 
-	<div class="bannerpart1">
-		<h3>CSC261: Game Database</h3>
-	</div>
+		<div class="bannerpart1">
+			<h3>CSC261: Game Database</h3>
+		</div>
 
-	<div class="bannerpart2">
-		<?php include 'inc/navroot.inc';?>
-	</div>
+		<div class="bannerpart2">
+			<?php include 'inc/navroot.inc';?>
+		</div>
 
-</header>
+	</header>
 
 	<main>
 		<div class="home-container">
@@ -59,7 +59,9 @@
 			</ul>
 
 
-			<h1 class="tableheading"> Welcome to the Game Database<?php if(isset($_SESSION['username'])) echo ", " . $_SESSION['username'] ?></h1>
+			<h1 class="tableheading"> Welcome to the Game Database
+				<?php if(isset($_SESSION['username'])) echo ", " . $_SESSION['username'] ?>
+			</h1>
 			<div>
 				<?php
 				require_once('db_setup.php');
@@ -79,9 +81,11 @@
 				<table class="table table-striped">
 					<tr>
 						<th>Game Name</th>
+						<th>Game ID</th>
 						<th>Rating</th>
 						<th>Price</th>
 						<th>Release Date</th>
+						<th>functions</th>
 					</tr>
 					<?php
 					while($row = $result->fetch_assoc()){
@@ -102,6 +106,9 @@
 							?>
 						</td>
 						<td>
+							<?php echo $row['game_id']?>
+						</td>
+						<td>
 							<?php echo $row['rating']?>
 						</td>
 						<td>
@@ -109,6 +116,9 @@
 						</td>
 						<td>
 							<?php echo $row['release_date']?>
+						</td>
+						<td>
+							<a href="./edit_game/edit_game.php?game_id=<?php echo $row['game_id']; ?>">Edit</a>
 						</td>
 					</tr>
 
